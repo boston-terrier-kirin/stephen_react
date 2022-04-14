@@ -2,13 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  // babelがやってくれるので、コンストラクタは不要。
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { lat: null, lng: null, errorMessage: '' };
+  // }
 
-    this.state = { lat: null, lng: null, errorMessage: '' };
+  state = { lat: null, lng: null, errorMessage: '' };
+
+  componentDidMount() {
+    console.log('componentDidMount');
 
     window.navigator.geolocation.getCurrentPosition(
       (position) => {
+        console.log(position);
+
         this.setState({
           lat: position.coords.latitude,
         });
@@ -19,7 +27,17 @@ class App extends React.Component {
     );
   }
 
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+  }
+
+  componentWillUnmounte() {
+    console.log('componentWillUnmounte');
+  }
+
   render() {
+    console.log('render');
+
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
