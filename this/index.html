@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class Car {
+        setDriveSound(sound) {
+          this.sound = sound;
+        }
+
+        drive() {
+          return this.sound;
+        }
+      }
+
+      const car = new Car();
+      car.setDriveSound('vroom');
+
+      // 例１
+      // この時、driveを呼び出しているのは左側のcar。
+      car.drive();
+
+      // 例２
+      const truck = {
+        sound: 'putputput',
+        driveMyTruck: car.drive,
+      };
+
+      // この時、thisはtruckになっているので、truck.sound が出力される。
+      truck.driveMyTruck();
+
+      // 例３
+      const drive = car.drive;
+
+      // この時、左側がないため、thisはundefined になっている。this.sound が呼び出せない。
+      drive();
+    </script>
+  </body>
+</html>
