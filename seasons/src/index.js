@@ -37,9 +37,7 @@ class App extends React.Component {
     console.log('componentWillUnmounte');
   }
 
-  render() {
-    console.log('render');
-
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
@@ -49,6 +47,12 @@ class App extends React.Component {
     }
 
     return <Spinner message="Please accept location request." />;
+  }
+
+  render() {
+    console.log('render');
+
+    return <div>{this.renderContent()}</div>;
   }
 }
 
