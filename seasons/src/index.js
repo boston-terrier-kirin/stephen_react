@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner';
 
 class App extends React.Component {
   // babelがやってくれるので、コンストラクタは不要。
@@ -47,7 +48,7 @@ class App extends React.Component {
       return <SeasonDisplay lat={this.state.lat} />;
     }
 
-    return <div>Loading...</div>;
+    return <Spinner message="Please accept location request." />;
   }
 }
 
