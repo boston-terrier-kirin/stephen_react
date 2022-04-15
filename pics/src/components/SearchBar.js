@@ -20,7 +20,8 @@ class SearchBar extends React.Component {
   // 解決３：onFormSubmit 自体をアロー関数にして、thisを固定する。
   onFormSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state.term);
+
+    this.props.onSubmit(this.state.term);
   };
 
   render() {
