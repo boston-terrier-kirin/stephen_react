@@ -7,14 +7,17 @@ import VideoList from './VideoList';
 class App extends React.Component {
   state = { videos: [], selectedVideo: null };
 
+  componentDidMount() {
+    this.onTermSubmit('NBA Playoffs 2022');
+  }
+
   onTermSubmit = async (term) => {
     const res = await youtube.get('/search', { params: { q: term } });
 
-    this.setState({ videos: res.data.items });
+    this.setState({ videos: res.data.items, selectedVideo: res.data.items[0] });
   };
 
   onVideoSelect = (video) => {
-    console.log('video', video);
     this.setState({ selectedVideo: video });
   };
 
