@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Accordion from './components/Accordion';
 import Dropdown from './components/Dropdown';
+import Route from './components/Route';
 import Search from './components/Search';
 import Translate from './components/Translate';
 
@@ -34,27 +35,51 @@ const options = [
   },
 ];
 
+// const App = () => {
+//   const [selected, setSelected] = useState(options[0]);
+//   const [showDropdown, setShowDropdown] = useState(true);
+
+//   return (
+//     <div onClick={() => /*event bubble調査用*/ console.log('app.click')}>
+//       <Accordion items={items} />
+//       <Search />
+
+//       <button onClick={() => setShowDropdown(!showDropdown)}>Toggle</button>
+//       {showDropdown ? (
+//         <Dropdown
+//           selected={selected}
+//           onSelectionChange={setSelected}
+//           options={options}
+//         />
+//       ) : null}
+
+//       <Translate />
+//     </div>
+//   );
+// };
+
 const App = () => {
   const [selected, setSelected] = useState(options[0]);
-  const [showDropdown, setShowDropdown] = useState(true);
 
   return (
-    // <div onClick={() => /*event bubble調査用*/ console.log('app.click')}>
     <div>
-      {/*
-      <Accordion items={items} />
-      <Search />
-      */}
-      {/* <button onClick={() => setShowDropdown(!showDropdown)}>Toggle</button>
-      {showDropdown ? (
+      <Route path="/">
+        <Accordion items={items} />
+      </Route>
+      <Route path="/list">
+        <Search />
+      </Route>
+      <Route path="/dropdown">
         <Dropdown
+          label="Select a Color"
           selected={selected}
           onSelectionChange={setSelected}
           options={options}
         />
-      ) : null} */}
-
-      <Translate />
+      </Route>
+      <Route path="/translate">
+        <Translate />
+      </Route>
     </div>
   );
 };
