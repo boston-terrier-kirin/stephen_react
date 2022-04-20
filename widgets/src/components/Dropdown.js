@@ -1,7 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Dropdown = ({ selected, onSelectionChange, options }) => {
   const [open, setOpen] = useState(false);
+
+  /**
+   * event bubbling問題
+   * bodyにイベントを仕込むと、event発生優先順位は、addEventListenerが高いので
+   * ・doby clicked -> false
+   * ・option clicked
+   * ・dropdown -> true
+   * になってしまい、drowpdownが閉じなくなる。
+   */
+  useEffect(() => {
+    document.body.addEventListener(
+      'click',
+      () => {
+        console.log('doby clicked -> false');
+        setOpen(false);
+      },
+      { capture: true }
+    );
+  }, []);
 
   const renderedOptions = options.map((option) => {
     if (option.value === selected.value) {
@@ -34,7 +53,7 @@ const Dropdown = ({ selected, onSelectionChange, options }) => {
         <label className="label">Select a Color</label>
         <div
           onClick={() => {
-            console.log('open/close');
+            console.log('dropdown ->', !open);
             setOpen(!open);
           }}
           className={`ui selection dropdown ${open ? 'visible active' : ''}`}
