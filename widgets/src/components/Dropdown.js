@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Dropdown = ({ selected, onSelectionChange, options }) => {
   const [open, setOpen] = useState(false);
+  const ref = useRef();
 
   /**
    * event bubbling問題
@@ -14,8 +15,16 @@ const Dropdown = ({ selected, onSelectionChange, options }) => {
   useEffect(() => {
     document.body.addEventListener(
       'click',
-      () => {
-        console.log('doby clicked -> false');
+      (event) => {
+        /**
+         * refはdropdown自身なので、eventの発生元がrefの場合は、setOpen(false) にしないようにする。
+         * 　↓
+         * dropdownのsetOpenが呼ばれて、open -> close に変わって、無事にdropdownが閉じるようになる。
+         */
+        if (ref.current.contains(event.target)) {
+          return;
+        }
+
         setOpen(false);
       },
       { capture: true }
@@ -48,7 +57,7 @@ const Dropdown = ({ selected, onSelectionChange, options }) => {
   });
 
   return (
-    <div className="ui form">
+    <div ref={ref} className="ui form">
       <div className="field">
         <label className="label">Select a Color</label>
         <div
