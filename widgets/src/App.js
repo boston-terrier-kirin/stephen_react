@@ -35,6 +35,7 @@ const options = [
 
 const App = () => {
   const [selected, setSelected] = useState(options[0]);
+  const [showDropdown, setShowDropdown] = useState(true);
 
   return (
     <div onClick={() => /*event bubble調査用*/ console.log('app.click')}>
@@ -42,11 +43,14 @@ const App = () => {
       <Accordion items={items} />
       <Search />
       */}
-      <Dropdown
-        selected={selected}
-        onSelectionChange={setSelected}
-        options={options}
-      />
+      <button onClick={() => setShowDropdown(!showDropdown)}>Toggle</button>
+      {showDropdown ? (
+        <Dropdown
+          selected={selected}
+          onSelectionChange={setSelected}
+          options={options}
+        />
+      ) : null}
     </div>
   );
 };

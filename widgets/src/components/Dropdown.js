@@ -13,22 +13,33 @@ const Dropdown = ({ selected, onSelectionChange, options }) => {
    * になってしまい、drowpdownが閉じなくなる。
    */
   useEffect(() => {
-    document.body.addEventListener(
-      'click',
-      (event) => {
-        /**
-         * refはdropdown自身なので、eventの発生元がrefの場合は、setOpen(false) にしないようにする。
-         * 　↓
-         * dropdownのsetOpenが呼ばれて、open -> close に変わって、無事にdropdownが閉じるようになる。
-         */
-        if (ref.current.contains(event.target)) {
-          return;
-        }
+    const onBodyClick = (event) => {
+      /**
+       * refはdropdown自身なので、eventの発生元がrefの場合は、setOpen(false) にしないようにする。
+       * 　↓
+       * dropdownのsetOpenが呼ばれて、open -> close に変わって、無事にdropdownが閉じるようになる。
+       */
+      if (ref.current.contains(event.target)) {
+        return;
+      }
 
-        setOpen(false);
-      },
-      { capture: true }
-    );
+      setOpen(false);
+    };
+
+    document.body.addEventListener('click', onBodyClick, { capture: true });
+
+    return () => {
+      /**
+       * TODO:
+       * toggleを閉じたら呼ばれるのはなぜ？
+       * ⇒閉じてレンダリングされなくなったタイミングでも呼ばれるみたい。
+       */
+      console.log('useEffect.cleanup');
+
+      document.body.removeEventListener('click', onBodyClick, {
+        capture: true,
+      });
+    };
   }, []);
 
   const renderedOptions = options.map((option) => {
