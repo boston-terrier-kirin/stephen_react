@@ -2,14 +2,25 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Search = (props) => {
-  const [term, setTerm] = useState('');
+  const [term, setTerm] = useState('stephen curry');
+  const [debouncedTerm, setDebouncedTerm] = useState(term);
   const [results, setResults] = useState([]);
 
   // ■useEffectのasync問題
   // asyncにはできない。Effect callbacks are synchronous to prevent race conditions. Put the async function inside
   // useEffect(async () => {}, [term]);
 
-  // 解決１
+  // ■missing dependency問題
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setDebouncedTerm(term);
+    }, 500);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [term]);
+
   useEffect(() => {
     const search = async () => {
       const { data } = await axios.get('https://ja.wikipedia.org/w/api.php', {
@@ -18,24 +29,56 @@ const Search = (props) => {
           list: 'search',
           origin: '*',
           format: 'json',
-          srsearch: term,
+          srsearch: debouncedTerm,
         },
       });
 
       setResults(data.query.search);
     };
 
-    const timerId = setTimeout(() => {
-      if (term) {
-        search();
-      }
-    }, 500);
+    // 同じ値を入力しなおした場合、debuoncedTermは変わらないので、検索が走らないというメリットあり。
+    if (debouncedTerm) {
+      search();
+    }
+  }, [debouncedTerm]);
 
-    return () => {
-      // 毎回cleanupされるので、最後に入力してから500ms後に検索が走ることになる。
-      clearTimeout(timerId);
-    };
-  }, [term]);
+  // 解決１
+  //   useEffect(() => {
+  //     const search = async () => {
+  //       const { data } = await axios.get('https://ja.wikipedia.org/w/api.php', {
+  //         params: {
+  //           action: 'query',
+  //           list: 'search',
+  //           origin: '*',
+  //           format: 'json',
+  //           srsearch: term,
+  //         },
+  //       });
+
+  //       setResults(data.query.search);
+  //     };
+
+  //     console.log(term, results.length);
+
+  //     // ■missing dependency問題
+  //     // React Hook useEffect has a missing dependency: 'results.length'.
+  //     if (term && !results.length) {
+  //       search();
+  //     } else {
+  //       const timerId = setTimeout(() => {
+  //         if (term) {
+  //           search();
+  //         }
+  //       }, 500);
+
+  //       return () => {
+  //         // 毎回cleanupされるので、最後に入力してから500ms後に検索が走ることになる。
+  //         clearTimeout(timerId);
+  //       };
+  //     }
+  //   }, [
+  //     term /*results.lengthを入れてしまうと、lengthが変わったタイミングでも呼び出してしまう。*/,
+  //   ]);
 
   // 解決２
   // useEffect(() => {
