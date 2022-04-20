@@ -5,8 +5,7 @@ const Search = (props) => {
   const [term, setTerm] = useState('');
   const [results, setResults] = useState([]);
 
-  console.log(results);
-
+  // ■useEffectのasync問題
   // asyncにはできない。Effect callbacks are synchronous to prevent race conditions. Put the async function inside
   // useEffect(async () => {}, [term]);
 
@@ -26,9 +25,16 @@ const Search = (props) => {
       setResults(data.query.search);
     };
 
-    if (term) {
-      search();
-    }
+    const timerId = setTimeout(() => {
+      if (term) {
+        search();
+      }
+    }, 500);
+
+    return () => {
+      // 毎回cleanupされるので、最後に入力してから500ms後に検索が走ることになる。
+      clearTimeout(timerId);
+    };
   }, [term]);
 
   // 解決２
@@ -45,6 +51,38 @@ const Search = (props) => {
   //   });
   // });
 
+  // ■CLEANUP
+  // useEffect(() => {
+  //   console.log('useEffect');
+  //   return () => {
+  //     // 初回はuseEffectだけが呼ばれる。
+  //     // 2回目以降は、cleanup⇒useEffectの順に呼ばれる。
+  //     // これは自然な流れで、初回はuseEffectが呼ばれて、cleanupを返す。これでreactにcleanupが伝わったので、以降は、cleanup⇒useEffectの順に呼ばれる。
+  //     console.log('cleanup');
+  //   };
+  // }, [term]);
+
+  const renderedResults = results.map((result) => {
+    return (
+      <div key={result.pageid} className="item">
+        <div className="right floated content">
+          <a
+            href={`https://ja.wikipedia.org?curid=${result.pageid}`}
+            target="_blank"
+            rel="noreferrer"
+            className="ui button"
+          >
+            GO
+          </a>
+        </div>
+        <div className="content">
+          <div className="header">{result.title}</div>
+          <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
+        </div>
+      </div>
+    );
+  });
+
   return (
     <div>
       <div className="ui form">
@@ -58,6 +96,7 @@ const Search = (props) => {
           />
         </div>
       </div>
+      <div className="ui celled list">{renderedResults}</div>
     </div>
   );
 };
