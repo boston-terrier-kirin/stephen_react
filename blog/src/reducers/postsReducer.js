@@ -1,4 +1,4 @@
-const postReducer = (state = [], action) => {
+const postsReducer = (state = [], action) => {
   switch (action.type) {
     case 'FETCH_POSTS':
       return action.payload;
@@ -7,4 +7,4 @@ const postReducer = (state = [], action) => {
   }
 };
 
-export default postReducer;
+export default postsReducer;
