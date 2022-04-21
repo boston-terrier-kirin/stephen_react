@@ -31,7 +31,7 @@ const mapStateToProps = (state) => {
 
   /**
    * ・stateはreduxのstate
-   * ・songsはpropsの名前
+   * ・songs: state.songsの左側のsongsはpropsの名前
    */
   return {
     songs: state.songs,
