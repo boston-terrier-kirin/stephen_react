@@ -1,14 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { selectSong } from '../actions';
 
 class SongList extends React.Component {
   renderList() {
-    console.log(this.props);
     return this.props.songs.map((song) => {
       return (
         <div key={song.title} className="item">
           <div className="right floated content">
-            <button className="ui button primary">Select</button>
+            <button
+              onClick={() => this.props.selectSong(song)}
+              className="ui button primary"
+            >
+              Select
+            </button>
           </div>
           <div className="content">{song.title}</div>
         </div>
@@ -22,6 +27,8 @@ class SongList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('STATE', state);
+
   /**
    * ・stateはreduxのstate
    * ・songsはpropsの名前
@@ -35,4 +42,4 @@ const mapStateToProps = (state) => {
  * ・mapStateToPropsで、reduxのどのstateをpropsに紐づけるかを決める。
  * ・connectは親玉であるproviderとのつなぎ役をやってくれる。
  */
-export default connect(mapStateToProps)(SongList);
+export default connect(mapStateToProps, { selectSong })(SongList);
