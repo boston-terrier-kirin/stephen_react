@@ -7,11 +7,6 @@ import StreamEdit from './streams/StreamEdit';
 import StreamDelete from './streams/StreamDelete';
 import StreamShow from './streams/StreamShow';
 
-// https://developers.google.com/identity/protocols/oauth2/scopes
-// https://www.googleapis.com/auth/userinfo.email
-
-// 723722231658-lf31fi6vnv4a8qdjrp04uar9nks52pu4.apps.googleusercontent.com
-
 const App = () => {
   return (
     <div className="ui container">
