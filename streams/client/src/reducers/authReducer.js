@@ -1,13 +1,13 @@
 const initialState = {
-  isSignedin: null,
+  isSignedIn: null,
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SIGN_IN':
-      return { ...state, isSignedin: true };
+      return { ...state, isSignedIn: true };
     case 'SIGN_OUT':
-      return { ...state, isSignedin: false };
+      return { ...state, isSignedIn: false };
     default:
       return state;
   }
