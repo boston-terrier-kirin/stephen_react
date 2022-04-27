@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchStreams } from '../../actions';
 
 const StreamList = (props) => {
@@ -14,8 +15,8 @@ const StreamList = (props) => {
     [fetchStreams]
   );
 
-  const renderAdmin = (stream) => {
-    if (stream.userId === props.currentUserId) {
+  const renderEditDeleteButton = (stream) => {
+    if (props.currentUserId && stream.userId === props.currentUserId) {
       return (
         <div className="right floated content">
           <button className="ui button primary">Edit</button>
@@ -30,7 +31,7 @@ const StreamList = (props) => {
   const renderList = props.streams.map((stream) => {
     return (
       <div className="item" key={stream.id}>
-        {renderAdmin(stream)}
+        {renderEditDeleteButton(stream)}
         <i className="large middle aligned icon camera" />
         <div className="content">
           {stream.title}
@@ -40,10 +41,23 @@ const StreamList = (props) => {
     );
   });
 
+  const renderCreateLink = () => {
+    if (props.isSignedIn) {
+      return (
+        <div style={{ textAlign: 'right' }}>
+          <Link to="/streams/new" className="ui button primary">
+            Create Stream
+          </Link>
+        </div>
+      );
+    }
+  };
+
   return (
     <div>
       <h2>Streams</h2>
       <div className="ui celled list">{renderList}</div>
+      {renderCreateLink()}
     </div>
   );
 };
@@ -53,6 +67,7 @@ const mapStateToProps = (state) => {
     // Object.valuesにすれば値の一覧がGETできる。
     streams: Object.values(state.streams),
     currentUserId: state.auth.userId,
+    isSignedIn: state.auth.isSignedIn,
   };
 };
 
