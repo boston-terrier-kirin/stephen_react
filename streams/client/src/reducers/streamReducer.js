@@ -17,6 +17,7 @@ const streamReducer = (state = {}, action) => {
     case FETCH_STREAM:
       // 1件返すのかと錯覚していたけど、state(Object)を最新化するのが正しい。
       // TODO：1件SELECTする場合はどうなるんだ？
+      //       ⇒StreamEditのmapStateToProps参照。useEffectでfetchして、idでselectする。
       return { ...state, [action.payload.id]: action.payload };
     case CREATE_STREAM:
       return { ...state, [action.payload.id]: action.payload };

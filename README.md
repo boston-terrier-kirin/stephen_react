@@ -40,6 +40,10 @@ Section17
 
 **redux+react-redux**
 
+- App.js で、SongList.js と SongDetail.js を左右に並べる。
+- SongList をクリックすると、dispatch。
+- SongDetail に dispatch した song を表示する。
+
 # blog
 
 Section18 ～ 19
