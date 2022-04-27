@@ -39,6 +39,12 @@ class StreamCreate extends React.Component {
    */
   onSubmit = (formValues) => {
     this.props.createStream(formValues);
+
+    // 1. ここでStreamListに遷移してしまうと、createStreamの処理結果が分からないので困る。
+    // 2. createStreamの中で遷移させたい。
+    // 3. propsに入っているにhistoryをcreateStreamに渡すのが面倒。
+    // 4. historyをどこからでもコントロールできるように、history.jsを作成。
+    // 5. App.jsで、BrowserRouterの代わりに、Routerを使うようにして、historyの作り方を指定する。
   };
 
   render() {

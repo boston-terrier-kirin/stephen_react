@@ -1,4 +1,5 @@
 import { streams } from '../apis/streams';
+import history from '../history';
 import {
   FETCH_STREAMS,
   FETCH_STREAM,
@@ -44,6 +45,10 @@ export const createStream = (formValues) => {
     const res = await streams.post('/streams', { ...formValues, userId });
 
     dispatch({ type: CREATE_STREAM, payload: res.data });
+
+    // ここで、StreamListに遷移するようにする。
+    // TODO：action自体は共通の色が濃いので、component側で制御した方が良いはず。
+    history.push('/');
   };
 };
 

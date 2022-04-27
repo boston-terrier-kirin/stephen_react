@@ -1,31 +1,22 @@
 {
   "streams": [
     {
-      "title": "my stream",
-      "description": "this is a test",
-      "id": 1
-    },
-    {
-      "title": "new stream",
-      "description": "yes",
-      "id": 2
-    },
-    {
-      "title": "my title",
-      "description": "this is nice",
-      "id": 3
-    },
-    {
-      "title": "NBA Playoffs 2022",
-      "description": "This was made by me",
-      "userId": null,
-      "id": 4
-    },
-    {
       "title": "NBA Playoffs 2022",
       "description": "This was made by me",
       "userId": "101918948634629812133",
       "id": 5
+    },
+    {
+      "title": "変な動き？",
+      "description": "どうなる？",
+      "userId": "101918948634629812133",
+      "id": 6
+    },
+    {
+      "title": "Router",
+      "description": "難しいかも。。",
+      "userId": "101918948634629812133",
+      "id": 7
     }
   ]
 }
