@@ -20,7 +20,7 @@
     },
     {
       "title": "NBA Finals",
-      "description": "MVP",
+      "description": "MVP⇒今年はテイタム？",
       "userId": "101918948634629812133",
       "id": 8
     },
@@ -38,8 +38,7 @@
     },
     {
       "title": "NBA Playoffs 2022 ",
-      "description": "KD",
-      "userId": "101918948634629812133",
+      "description": "KD、カイリー",
       "id": 11
     },
     {
@@ -50,8 +49,7 @@
     },
     {
       "title": "redux-formが一部挙動不審",
-      "description": "なんでだろう？",
-      "userId": "101918948634629812133",
+      "description": "なんでだろう？⇒解決",
       "id": 13
     }
   ]

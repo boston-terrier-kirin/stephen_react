@@ -54,9 +54,17 @@ export const createStream = (formValues) => {
 
 export const editStream = (id, formValues) => {
   return async (dispatch) => {
-    const res = await streams.put(`/streams/${id}`, formValues);
+    // PUTだとレコード丸ごと上書きなので、指定していないプロパティはなくなってしまう。
+    // const res = await streams.put(`/streams/${id}`, formValues);
+
+    // 指定したプロパティのみ更新の場合、patchが正しい。
+    const res = await streams.patch(`/streams/${id}`, formValues);
 
     dispatch({ type: EDIT_STREAM, payload: res.data });
+
+    // ここで、StreamListに遷移するようにする。
+    // TODO：action自体は共通の色が濃いので、component側で制御した方が良いはず。
+    history.push('/');
   };
 };
 
