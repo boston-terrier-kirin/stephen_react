@@ -29,7 +29,7 @@ const streamReducer = (state = {}, action) => {
       // 省略形
       return { ...state, [action.payload.id]: action.payload };
     case DELETE_STREAM:
-      const newState = [...state];
+      const newState = { ...state };
       delete newState[action.payload];
       return newState;
     default:

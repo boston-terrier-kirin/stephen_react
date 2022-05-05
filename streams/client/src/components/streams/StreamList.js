@@ -8,6 +8,7 @@ const StreamList = (props) => {
 
   useEffect(
     () => {
+      console.log('StreamList.useEffect');
       fetchStreams();
     },
     /**

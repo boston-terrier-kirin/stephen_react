@@ -1,51 +1,9 @@
 {
   "streams": [
     {
-      "title": "NBA Playoffs 2022",
-      "description": "This was made by me",
-      "userId": "101918948634629812133",
-      "id": 5
-    },
-    {
-      "title": "変な動き？",
-      "description": "どうなる？",
-      "userId": "101918948634629812133",
-      "id": 6
-    },
-    {
-      "title": "Router",
-      "description": "難しいかも。。",
-      "userId": "101918948634629812133",
-      "id": 7
-    },
-    {
-      "title": "NBA Finals",
-      "description": "MVP⇒今年はテイタム？",
-      "userId": "101918948634629812133",
-      "id": 8
-    },
-    {
-      "title": "Twitter",
-      "description": "なんか挙動が変になった気がする",
-      "userId": "101918948634629812133",
-      "id": 9
-    },
-    {
-      "title": "ｄｄｄ",
-      "description": "ｄｄｄｄｄｄ",
-      "userId": "101918948634629812133",
-      "id": 10
-    },
-    {
       "title": "NBA Playoffs 2022 ",
       "description": "KD、カイリー",
       "id": 11
-    },
-    {
-      "title": "dddddd",
-      "description": "dddddddddddddd",
-      "userId": "101918948634629812133",
-      "id": 12
     },
     {
       "title": "redux-formが一部挙動不審",

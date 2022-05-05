@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Modal from '../Modal';
 import history from '../../history';
 import { fetchStream, deleteStream } from '../../actions';
@@ -9,7 +10,7 @@ const StreamDelete = (props) => {
   // useParamsでもOK。
   // const id = props.match.params.id;
   const { id } = useParams();
-  const { stream, fetchStream } = props;
+  const { stream, fetchStream, deleteStream } = props;
 
   useEffect(() => {
     fetchStream(id);
@@ -17,15 +18,19 @@ const StreamDelete = (props) => {
 
   const actions = (
     <>
-      <button className="ui button negative">Delete</button>
-      <button className="ui button">Cancel</button>
+      <button onClick={() => deleteStream(id)} className="ui button negative">
+        Delete
+      </button>
+      <Link to="/" className="ui button">
+        Cancel
+      </Link>
     </>
   );
 
   const renderContent = () => {
     // StreamEditとは違って、Modalを先に表示するために、ひと工夫。
     if (!stream) {
-      return <div>Loading...</div>;
+      return 'Are your sure want to delete this stream?';
     }
 
     return `Are your sure want to delete ${stream.title} ?`;
