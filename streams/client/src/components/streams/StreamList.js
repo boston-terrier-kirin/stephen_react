@@ -8,7 +8,7 @@ const StreamList = (props) => {
 
   useEffect(
     () => {
-      console.log('StreamList.useEffect');
+      // console.log('StreamList.useEffect');
       fetchStreams();
     },
     /**
@@ -43,7 +43,9 @@ const StreamList = (props) => {
         {renderEditDeleteButton(stream)}
         <i className="large middle aligned icon camera" />
         <div className="content">
-          {stream.title}
+          <Link to={`/streams/${stream.id}`} className="header">
+            {stream.title}
+          </Link>
           <div className="description">{stream.description}</div>
         </div>
       </div>

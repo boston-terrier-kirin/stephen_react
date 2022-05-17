@@ -13,7 +13,7 @@ const StreamEdit = (props) => {
   }, [id, fetchStream]);
 
   // ブラウザをリフレッシュした場合、初回はundefinedになっていて、fetchStreamが終わったらステートが変わって、再度レンダリングが走る。
-  console.log(props.stream);
+  // console.log(props.stream);
 
   // TODO：useStateを使って、setIsLoadingパターンをやろうとしたけど、fetchStreamをawaitできるわけではないので、仕方なく、prosp.streamで判定。
   if (!props.stream) {
